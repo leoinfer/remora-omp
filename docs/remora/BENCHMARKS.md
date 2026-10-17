@@ -47,4 +47,4 @@ For split tool/model critical paths, record overlapping intervals rather than ad
 
 ## Status
 
-No A/B runs have been executed. The local engine is active and must not receive benchmark load; baseline execution awaits a safe idle window and clean upstream build. The data schema and method are ready to use but have not been validated against an actual run.
+No A/B runs have been executed. The local engine is active and must not receive benchmark load; baseline execution awaits a safe idle window and clean upstream build. The five workload strata and metric protocol are specified, but no REMORA-specific task manifest, fixtures, or independent scorer has been frozen or validated. The existing metaharness is source-audited only; no runner has been built or tested from this fork. Thus there is no measured baseline and no evidence-supported optimization prototype to retain.
