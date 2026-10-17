@@ -5,7 +5,7 @@
 - Public GitHub fork: `leoinfer/remora-omp` (parent `can1357/oh-my-pi`).
 - `origin`: `https://github.com/leoinfer/remora-omp.git`.
 - `upstream`: `https://github.com/can1357/oh-my-pi.git`.
-- Current branch: `main`, clean at `df4f996e66a200ab7e0496114d43bdf85f32194d` (`2026-10-17`, `chore: bump version to 18.12.0`) when recorded.
+- Initial upstream base: `df4f996e66a200ab7e0496114d43bdf85f32194d` (`2026-10-17`, `chore: bump version to 18.12.0`). Subsequent REMORA commits add research documentation only; no upstream source code has been changed.
 - License and upstream notices remain in `LICENSE`; this fork does not remove OMP/Stencil/Pi attribution.
 
 ## Routine update
