@@ -16,6 +16,8 @@ Each task must be deterministic enough to verify, self-contained, solvable from 
 
 Do not use synthetic “finish in one tool call” tasks as a replacement for realistic tasks. Freeze hidden verifier tests before an experiment. Human review should score task correctness, completeness, evidence, unnecessary changes, and factual accuracy against a rubric blinded to arm.
 
+The pinned SWE-bench Verified candidate pool and missing-stratum plan are tracked in [`WORKLOADS.md`](WORKLOADS.md). It is a screened seed catalog, not a frozen or validated suite.
+
 ## Reuse the existing benchmark harness
 
 The fork already contains `packages/metaharness`: Harbor, edit-task and SnapCompact adapters, a native Terminal-Bench 2.1 runner, resumable runs, normalized traces, and experiment/run storage. Extend this infrastructure with the REMORA task/hour record and engine telemetry rather than creating a second scheduler, database or dashboard. The existing runner's configured workstation defaults include high concurrency; do not launch them on the active local engine. First schedule a dedicated, single-local-request profile in an idle window; cloud-only controls may be exercised separately without using the local GPU.
@@ -47,4 +49,4 @@ For split tool/model critical paths, record overlapping intervals rather than ad
 
 ## Status
 
-No A/B runs have been executed. The local engine is active and must not receive benchmark load; baseline execution awaits a safe idle window and clean upstream build. The five workload strata and metric protocol are specified, but no REMORA-specific task manifest, fixtures, or independent scorer has been frozen or validated. The existing metaharness is source-audited only; no runner has been built or tested from this fork. Thus there is no measured baseline and no evidence-supported optimization prototype to retain.
+No A/B runs have been executed. The local engine is active and must not receive benchmark load; baseline execution awaits a safe idle window and clean upstream build. `WORKLOADS.md` now records six source-screened SWE-bench candidates at a pinned dataset commit, but has no task payload hashes, validated agent/scorer isolation, repository-research tasks, or long-context tasks. No REMORA-specific task suite has been frozen or validated. The existing metaharness is source-audited only; no runner has been built or tested from this fork. Thus there is no measured baseline and no evidence-supported optimization prototype to retain.
