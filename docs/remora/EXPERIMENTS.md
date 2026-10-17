@@ -37,3 +37,10 @@ This file records decision state, including rejected and blocked work. Entries r
 - **Scheduling:** request-scoped `pcie_frac`, layer-split `prefill_pipe`, and `aux_cpus` are available. Engine concurrency is an opt-in batch path; no concurrency experiment is safe or informative while the local engine/campaign is active.
 - **Harness seam:** OMP's OpenAI adapter forwards configured `compat.extraBody`; Strata's request parser consumes its extension fields. This can express static configuration, but does not provide dynamic engine-state scheduling or route Strata telemetry into OMP task traces. Keep HTTP as the baseline and test this seam only after build and request-contract verification.
 - **Next discriminator:** in an idle isolated run, capture the full request/response, verify custom-field round-trip and telemetry alignment, then compare one engine control at a time with task correctness and resource pressure.
+
+## E4 — Context and tool-result reuse surface
+
+- **Status:** source audit complete; no runtime experiment.
+- **Existing mechanisms:** append-only message reconstruction and stable system/tool prefixes already address incremental state; compaction pruning accounts for prompt-cache economics and can supersede stale file reads.
+- **Content addressing:** OMP's persistent content-addressed blob store is for image/blob bytes and stable serving URLs, not general tool-result memoization.
+- **Decision:** do not add a semantic cache or general tool-result cache without an exact identity for tool inputs, workspace state, environment, authorization and freshness. A token-saving placeholder could remove information the model needs; benchmark duplicate calls and result-token cost first, then verify correctness on adversarial state changes.
