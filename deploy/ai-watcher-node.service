@@ -1,0 +1,16 @@
+[Unit]
+Description=ai-watcher node: execution lifecycle supervisor for OMP hibernation
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/aw-node --config %h/.config/ai-watcher/node.toml daemon
+Restart=always
+RestartSec=3
+# The daemon owns no long-lived child besides short-lived probes; experiment
+# units are separate systemd scopes and are not killed here.
+KillMode=mixed
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

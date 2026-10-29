@@ -69,6 +69,10 @@ export const galleryHelp = {
 } satisfies CommandMetadata;
 
 export const gcHelp = { description: "Run storage garbage collection" } satisfies CommandMetadata;
+export const hibernateHelp = {
+	description:
+		"Inspect, wake, cancel, or recover durably hibernated sessions and their independent experiment jobs (no model call)",
+} satisfies CommandMetadata;
 export const ifBenchHelp = {
 	description:
 		"Benchmark instruction following and working memory: one cached thread of glyph array actions with a moving cat-sound directive",

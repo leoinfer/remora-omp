@@ -95,6 +95,10 @@ export const launchHelp = {
 			description:
 				"Print mode: before exiting, wait for this run's background jobs and wake the session with each result (async.printWake); no time limit unless --max-time is set",
 		}),
+		"length-is-terminal": Flags.boolean({
+			description:
+				"Treat a max-token (finish_reason=length) stop as terminal instead of re-entering the loop; automated resumes use this so a truncated answer is a complete result",
+		}),
 		"external-thinking": Flags.boolean({
 			description:
 				"Use a private scratchpad while disabling supported GPT, Claude, and Gemini reasoning (at your own risk: providers have flagged this request shape as abuse)",

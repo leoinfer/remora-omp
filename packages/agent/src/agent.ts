@@ -163,6 +163,9 @@ export interface AgentOptions {
 	/** Absolute wall-clock deadline in Unix epoch milliseconds. */
 	deadline?: number;
 
+	/** End the run on a `length` stop instead of repairing truncated tool calls. */
+	lengthIsTerminal?: boolean;
+
 	/**
 	 * Optional session identifier forwarded to LLM providers.
 	 * Used by providers that support session-based caching (e.g., OpenAI Codex).
@@ -451,6 +454,7 @@ export class Agent {
 	#interruptMode: "immediate" | "wait";
 	#sessionId?: string;
 	#deadline?: number;
+	#lengthIsTerminal?: boolean;
 	#promptCacheKey?: string;
 	#metadata?: Record<string, unknown>;
 	#metadataResolver?: (provider: string) => Record<string, unknown> | undefined;
@@ -567,6 +571,7 @@ export class Agent {
 		this.streamFn = opts.streamFn || streamSimple;
 		this.#sessionId = opts.sessionId;
 		this.#deadline = opts.deadline;
+		this.#lengthIsTerminal = opts.lengthIsTerminal;
 		this.#promptCacheKey = opts.promptCacheKey;
 		this.#providerSessionState = opts.providerSessionState;
 		this.#thinkingBudgets = opts.thinkingBudgets;
@@ -1902,6 +1907,7 @@ export class Agent {
 			interruptMode: this.#interruptMode,
 			sessionId: this.#sessionId,
 			deadline: this.#deadline,
+			lengthIsTerminal: this.#lengthIsTerminal,
 			promptCacheKey: this.#promptCacheKey,
 			metadata: this.#metadataResolver ? undefined : this.#metadata,
 			metadataResolver: this.#metadataResolver,

@@ -130,6 +130,11 @@ export const commands: CommandEntry[] = [
 		help: commandHelp.grepHelp,
 	},
 	{
+		name: "hibernate",
+		load: () => import("./commands/hibernate").then(m => m.default),
+		help: commandHelp.hibernateHelp,
+	},
+	{
 		name: "gallery",
 		load: () => import("./commands/gallery").then(m => m.default),
 		help: commandHelp.galleryHelp,

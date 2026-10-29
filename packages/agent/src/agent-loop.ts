@@ -1719,7 +1719,12 @@ async function runLoopBody(
 							status: deadlinePassed ? "aborted" : "skipped",
 						});
 					}
-					if (message.stopReason === "length" && toolResults.length > 0 && !deadlinePassed) {
+					if (
+						message.stopReason === "length" &&
+						toolResults.length > 0 &&
+						!deadlinePassed &&
+						!config.lengthIsTerminal
+					) {
 						hasMoreToolCalls = true;
 					}
 				}

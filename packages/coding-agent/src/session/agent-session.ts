@@ -11902,8 +11902,15 @@ export class AgentSession implements SettingsScope {
 	}
 
 	#isTerminalYieldToolResult(event: { toolName: string; isError?: boolean; result?: { details?: unknown } }): boolean {
-		if (event.toolName !== "yield" || event.isError) return false;
+		if (event.isError) return false;
 		const details = event.result?.details;
+		// A tool can end the turn deliberately by returning `details.terminal`.
+		// Hibernation uses it to release the process after the registration is
+		// durable, without spending another model call on a "goodbye" turn.
+		if (details && typeof details === "object" && "terminal" in details && details.terminal === true) {
+			return true;
+		}
+		if (event.toolName !== "yield") return false;
 		if (!details || typeof details !== "object") return true;
 		const record = details as Record<string, unknown>;
 		return !(

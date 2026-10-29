@@ -1432,6 +1432,9 @@ export async function buildSessionOptions(
 	if (cliDirs.length > 0 || settingsDirs.length > 0) {
 		options.additionalDirectories = [...new Set([...cliDirs, ...settingsDirs])];
 	}
+	if (parsed.lengthIsTerminal) {
+		options.lengthIsTerminal = true;
+	}
 	if (parsed.maxTime !== undefined) {
 		options.deadline = Date.now() + parsed.maxTime * 1000;
 	}

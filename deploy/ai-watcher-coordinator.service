@@ -1,0 +1,15 @@
+[Unit]
+Description=ai-watcher coordinator: durable hibernation registry and wake ordering
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/aw-coord daemon
+Restart=always
+RestartSec=5
+# SQLite lives under the configured state_dir; back it up if this host is ephemeral.
+StateDirectory=ai-watcher
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

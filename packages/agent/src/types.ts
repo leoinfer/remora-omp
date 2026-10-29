@@ -197,6 +197,14 @@ export interface AgentLoopConfig extends SimpleStreamOptions {
 	deadline?: number;
 
 	/**
+	 * Treat a `length` stop as terminal instead of re-entering the loop to
+	 * repair truncated tool calls. Automated resume runs set this so a
+	 * max-token answer is a complete (truncated) result, not a re-send of a
+	 * growing context.
+	 */
+	lengthIsTerminal?: boolean;
+
+	/**
 	 * Optional resolver called per LLM request to produce request metadata.
 	 * When set, the agent loop evaluates it **after** `getApiKey` resolves the
 	 * session-sticky credential, ensuring the metadata's `account_uuid` reflects
