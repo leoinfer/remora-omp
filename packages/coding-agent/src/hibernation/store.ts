@@ -202,6 +202,18 @@ export function readBootId(): string | undefined {
 }
 
 /** Linux `/proc/<pid>/stat` field 22, robust to spaces and parentheses in comm. */
+/** Linux process state; `Z` means exited but not reaped. */
+export function readProcessState(pid: number): string | undefined {
+	try {
+		const stat = fs.readFileSync(`/proc/${pid}/stat`, "utf8");
+		const close = stat.lastIndexOf(")");
+		if (close < 0) return undefined;
+		return stat.slice(close + 2).trimStart().charAt(0) || undefined;
+	} catch {
+		return undefined;
+	}
+}
+
 export function readProcessStartTicks(pid: number): number | undefined {
 	try {
 		const stat = fs.readFileSync(`/proc/${pid}/stat`, "utf8");
@@ -245,6 +257,9 @@ export function probeProcessIdentity(identity: ProcessIdentity): LivenessProbe {
 		if (current !== identity.startTicks) {
 			return { alive: false, reason: "pid was reused by another process" };
 		}
+	}
+	if (readProcessState(identity.pid) === "Z") {
+		return { alive: false, reason: "process is a zombie" };
 	}
 	return { alive: true, reason: "process is alive" };
 }
